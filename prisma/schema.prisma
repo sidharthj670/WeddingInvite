@@ -1,0 +1,21 @@
+// Prisma schema — wedding invites
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Invite {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  templateId  String
+  payload     String
+  editToken   String
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
