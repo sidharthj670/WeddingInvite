@@ -68,12 +68,14 @@ export const WEDDING_CLASSIC_ID = 'wedding-classic-v1' as const;
 export const WEDDING_SCROLL_V2_ID = 'wedding-scroll-v2' as const;
 export const WEDDING_CITY_LUXE_ID = 'wedding-city-luxe-v1' as const;
 export const WEDDING_OCEANIC_ID = 'wedding-oceanic-v1' as const;
+export const WEDDING_MOUNTAIN_ID = 'wedding-mountain-v1' as const;
 
 export const TEMPLATE_IDS = [
 	WEDDING_CLASSIC_ID,
 	WEDDING_SCROLL_V2_ID,
 	WEDDING_CITY_LUXE_ID,
-	WEDDING_OCEANIC_ID
+	WEDDING_OCEANIC_ID,
+	WEDDING_MOUNTAIN_ID
 ] as const;
 export type TemplateId = (typeof TEMPLATE_IDS)[number];
 
