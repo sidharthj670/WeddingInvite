@@ -6,81 +6,84 @@
 	let open = $state(false);
 
 	const isHome = $derived(page.url.pathname === '/');
+	const isInvite = $derived(page.url.pathname.startsWith('/i/'));
 
 	afterNavigate(() => {
 		open = false;
 	});
 </script>
 
-<div class="app" class:app-home={isHome}>
-	<button
-		type="button"
-		class="nav-fab"
-		aria-label={open ? 'Close menu' : 'Open menu'}
-		aria-expanded={open}
-		onclick={() => (open = !open)}
-	>
-		<span class="burger" class:open={open}></span>
-	</button>
+<div class="app" class:app-home={isHome} class:app-invite={isInvite}>
+	{#if !isInvite}
+		<button
+			type="button"
+			class="nav-fab"
+			aria-label={open ? 'Close menu' : 'Open menu'}
+			aria-expanded={open}
+			onclick={() => (open = !open)}
+		>
+			<span class="burger" class:open={open}></span>
+		</button>
 
-	{#if open}
-		<button type="button" class="scrim" aria-label="Close menu" onclick={() => (open = false)}></button>
-	{/if}
+		{#if open}
+			<button type="button" class="scrim" aria-label="Close menu" onclick={() => (open = false)}></button>
+		{/if}
 
-	<aside class="sidebar" class:open>
-		<div class="brand-block">
-			<a href="/" class="brand">Vow & Scroll</a>
-			<p class="brand-tag">Digital shaadi · one sacred link</p>
-		</div>
-
-		<nav class="nav-main" aria-label="Primary">
-			<a href="/" class="nav-link" class:active={page.url.pathname === '/'} data-sveltekit-preload-data>
-				<span class="nav-icon" aria-hidden="true">◈</span>
-				Home
-			</a>
-			<a
-				href="/create"
-				class="nav-link nav-cta"
-				class:active={page.url.pathname.startsWith('/create')}
-				data-sveltekit-preload-data
-			>
-				<span class="nav-icon" aria-hidden="true">◎</span>
-				Create invite
-			</a>
-			<a
-				href="/about"
-				class="nav-link"
-				class:active={page.url.pathname.startsWith('/about')}
-				data-sveltekit-preload-data
-			>
-				<span class="nav-icon" aria-hidden="true">❋</span>
-				About
-			</a>
-			<a
-				href="/contact"
-				class="nav-link"
-				class:active={page.url.pathname.startsWith('/contact')}
-				data-sveltekit-preload-data
-			>
-				<span class="nav-icon" aria-hidden="true">✉</span>
-				Contact us
-			</a>
-		</nav>
-
-		<div class="nav-social">
-			<p class="social-label">Follow</p>
-			<div class="social-row">
-				<button type="button" class="social-pill" disabled title="YouTube link coming soon">
-					<span class="si si-yt">▶</span>
-					YouTube
-				</button>
-				<button type="button" class="social-pill" disabled title="Instagram link coming soon">
-					<span class="si si-ig">◎</span>
-					Instagram
-				</button>
+		<aside class="sidebar" class:open>
+			<div class="brand-block">
+				<a href="/" class="brand">Vow & Scroll</a>
+				<p class="brand-tag">Digital shaadi · one sacred link</p>
 			</div>
-		</div>
-	</aside>
+
+			<nav class="nav-main" aria-label="Primary">
+				<a href="/" class="nav-link" class:active={page.url.pathname === '/'} data-sveltekit-preload-data>
+					<span class="nav-icon" aria-hidden="true">◈</span>
+					Home
+				</a>
+				<a
+					href="/create"
+					class="nav-link nav-cta"
+					class:active={page.url.pathname.startsWith('/create')}
+					data-sveltekit-preload-data
+				>
+					<span class="nav-icon" aria-hidden="true">◎</span>
+					Create invite
+				</a>
+				<a
+					href="/about"
+					class="nav-link"
+					class:active={page.url.pathname.startsWith('/about')}
+					data-sveltekit-preload-data
+				>
+					<span class="nav-icon" aria-hidden="true">❋</span>
+					About
+				</a>
+				<a
+					href="/contact"
+					class="nav-link"
+					class:active={page.url.pathname.startsWith('/contact')}
+					data-sveltekit-preload-data
+				>
+					<span class="nav-icon" aria-hidden="true">✉</span>
+					Contact us
+				</a>
+			</nav>
+
+			<div class="nav-social">
+				<p class="social-label">Follow</p>
+				<div class="social-row">
+					<button type="button" class="social-pill" disabled title="YouTube link coming soon">
+						<span class="si si-yt">▶</span>
+						YouTube
+					</button>
+					<button type="button" class="social-pill" disabled title="Instagram link coming soon">
+						<span class="si si-ig">◎</span>
+						Instagram
+					</button>
+				</div>
+			</div>
+		</aside>
+	{/if}
 
 	<div class="stage">
 		{@render children()}
@@ -225,6 +228,12 @@
 
 	.app-home .sidebar.open {
 		transform: translateX(0);
+	}
+
+	/* Published invite: fullscreen, no chrome at all */
+	.app-invite .stage {
+		padding-top: 0;
+		margin-left: 0;
 	}
 
 	.brand-block {
