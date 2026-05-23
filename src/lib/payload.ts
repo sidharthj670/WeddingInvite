@@ -69,13 +69,15 @@ export const WEDDING_SCROLL_V2_ID = 'wedding-scroll-v2' as const;
 export const WEDDING_CITY_LUXE_ID = 'wedding-city-luxe-v1' as const;
 export const WEDDING_OCEANIC_ID = 'wedding-oceanic-v1' as const;
 export const WEDDING_MOUNTAIN_ID = 'wedding-mountain-v1' as const;
+export const WEDDING_CINEMATIC_FRAMES_ID = 'wedding-cinematic-frames-v1' as const;
 
 export const TEMPLATE_IDS = [
 	WEDDING_CLASSIC_ID,
 	WEDDING_SCROLL_V2_ID,
 	WEDDING_CITY_LUXE_ID,
 	WEDDING_OCEANIC_ID,
-	WEDDING_MOUNTAIN_ID
+	WEDDING_MOUNTAIN_ID,
+	WEDDING_CINEMATIC_FRAMES_ID
 ] as const;
 export type TemplateId = (typeof TEMPLATE_IDS)[number];
 
@@ -316,7 +318,11 @@ export function validateForPublish(
 	if (!hasDate) errors.push('Wedding date is required.');
 	if (!p.rsvpUrl?.trim()) errors.push('RSVP link is required.');
 
-	if (templateId === WEDDING_SCROLL_V2_ID || templateId === WEDDING_OCEANIC_ID) {
+	if (
+		templateId === WEDDING_SCROLL_V2_ID ||
+		templateId === WEDDING_OCEANIC_ID ||
+		templateId === WEDDING_CINEMATIC_FRAMES_ID
+	) {
 		if (errors.length) return { ok: false, errors };
 		return { ok: true };
 	}
