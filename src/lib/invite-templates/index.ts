@@ -3,6 +3,7 @@ import { weddingClassicV1 } from './wedding-classic-v1/meta';
 import { weddingCityLuxeV1 } from './wedding-city-luxe-v1/meta';
 import { weddingScrollV2 } from './wedding-scroll-v2/meta';
 import { weddingOceanicV1 } from './wedding-oceanic-v1/meta';
+import { weddingMountainV1 } from './wedding-mountain-v1/meta';
 import type { InviteTemplateDefinition } from './types';
 
 export type { InviteTemplateDefinition, InviteTemplateProps } from './types';
@@ -18,7 +19,8 @@ export const INVITE_TEMPLATE_LIST: readonly InviteTemplateDefinition[] = [
 	weddingClassicV1,
 	weddingScrollV2,
 	weddingCityLuxeV1,
-	weddingOceanicV1
+	weddingOceanicV1,
+	weddingMountainV1
 ];
 
 const fallback = weddingClassicV1;
