@@ -8,6 +8,6 @@ export const weddingCinematicFramesV1: InviteTemplateDefinition = {
 	label: 'Cinematic frames',
 	shortLabel: 'Cinematic',
 	description:
-		'A scroll-driven film made from video frames — smooth frame scrubbing with emerging text every ten frames. Full-screen when published.',
+		'A scroll-driven film made from video frames — smooth compressed scrubbing with text beats across the scroll. Full-screen when published.',
 	component: Component
 };

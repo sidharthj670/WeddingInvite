@@ -9,15 +9,24 @@
 
 	let { payload, preview = false }: { payload: WeddingPayload; preview?: boolean } = $props();
 
-	const FRAME_START = 5;
-	const FRAME_END = 100;
+	const FRAME_START = 4;
+	const FRAME_END = 300;
 	const TOTAL_FRAMES = FRAME_END - FRAME_START + 1;
-	const SCROLL_HEIGHT_PER_FRAME = $derived(preview ? 11 : 12);
+	/** Full film scrub length — keeps ~9 viewport heights regardless of frame count. */
+	const TARGET_SCROLL_VH = $derived(preview ? 780 : 900);
+	const SCROLL_HEIGHT_PER_FRAME = $derived(TARGET_SCROLL_VH / TOTAL_FRAMES);
 
 	const frameUrls = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
 		const n = FRAME_START + i;
 		return `/wedding-frames/ezgif-frame-${String(n).padStart(3, '0')}.jpg`;
 	});
+
+	/** Map scroll progress to frame position with smoothstep for fluid scrubbing. */
+	function framePosition(progress: number): number {
+		const clamped = Math.max(0, Math.min(1, progress));
+		const eased = clamped * clamped * (3 - 2 * clamped);
+		return eased * (TOTAL_FRAMES - 1);
+	}
 
 	function safeUrl(u: string): string | null {
 		const t = u?.trim();
@@ -211,7 +220,7 @@
 	});
 
 	const currentFrame = $derived.by(() => {
-		const pos = globalProgress * (TOTAL_FRAMES - 1);
+		const pos = framePosition(globalProgress);
 		const idx = Math.floor(pos);
 		const blend = pos - idx;
 		return {
@@ -263,7 +272,7 @@
 					alt=""
 					style="opacity: {1 - currentFrame.blend}"
 				/>
-				{#if currentFrame.blend > 0.005 && currentFrame.index !== currentFrame.next}
+				{#if currentFrame.blend > 0.001 && currentFrame.index !== currentFrame.next}
 					<img
 						class="frame-img frame-blend"
 						src={frameUrls[currentFrame.next]}
