@@ -11,6 +11,7 @@ export type { InviteTemplateDefinition, InviteTemplateProps } from './types';
 
 /**
  * Invite templates live in one folder each: `./<folder>/InviteTemplate.svelte` + `./<folder>/meta.ts`.
+ * Bundled images/audio for a template go in `static/invite-templates/<folder>/`.
  * To add a template:
  * 1. Add `NEW_ID` to `TEMPLATE_IDS` in `$lib/payload.ts` (and validation rules if needed).
  * 2. Copy an existing folder under `invite-templates/`, implement `InviteTemplate.svelte` (props: payload, preview).

@@ -12,6 +12,7 @@ export type InviteTemplateDefinition = {
 	id: TemplateId;
 	/** Folder name under invite-templates/ (for humans & docs) */
 	folder: string;
+	/** Bundled static assets: static/invite-templates/<folder>/ → /invite-templates/<folder>/ */
 	label: string;
 	shortLabel: string;
 	description: string;

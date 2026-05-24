@@ -6,20 +6,13 @@
 		getDisplayCoupleLine
 	} from '$lib/payload';
 	import BackgroundMusic from '$lib/invite-templates/BackgroundMusic.svelte';
+	import { TOTAL_FRAMES, frameUrls } from './frames.config';
 
 	let { payload, preview = false }: { payload: WeddingPayload; preview?: boolean } = $props();
 
-	const FRAME_START = 4;
-	const FRAME_END = 300;
-	const TOTAL_FRAMES = FRAME_END - FRAME_START + 1;
 	/** Full film scrub length — keeps ~9 viewport heights regardless of frame count. */
 	const TARGET_SCROLL_VH = $derived(preview ? 780 : 900);
 	const SCROLL_HEIGHT_PER_FRAME = $derived(TARGET_SCROLL_VH / TOTAL_FRAMES);
-
-	const frameUrls = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
-		const n = FRAME_START + i;
-		return `/wedding-frames/ezgif-frame-${String(n).padStart(3, '0')}.jpg`;
-	});
 
 	/** Map scroll progress to frame position with smoothstep for fluid scrubbing. */
 	function framePosition(progress: number): number {
